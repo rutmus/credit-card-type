@@ -9,6 +9,7 @@ var DISCOVER = 'discover';
 var JCB = 'jcb';
 var UNIONPAY = 'unionpay';
 var MAESTRO = 'maestro';
+var ISRACARD = 'isracard';
 var CVV = 'CVV';
 var CID = 'CID';
 var CVC = 'CVC';
@@ -21,7 +22,8 @@ var testOrder = [
   DISCOVER,
   JCB,
   UNIONPAY,
-  MAESTRO
+  MAESTRO,
+  ISRACARD
 ];
 
 function clone(x) {
@@ -143,6 +145,19 @@ types[MAESTRO] = {
   }
 };
 
+types[ISRACARD] = {
+  niceType: 'Isracard',
+  type: ISRACARD,
+  prefixPattern: /^1$/,
+  exactPattern: /^1\d*$/,
+  gaps: [],
+  lengths: [8, 9],
+  code: {
+    name: CVC,
+    size: 3
+  }
+};
+
 function creditCardType(cardNumber) {
   var type, value, i;
   var prefixResults = [];
@@ -183,7 +198,8 @@ creditCardType.types = {
   DISCOVER: DISCOVER,
   JCB: JCB,
   UNIONPAY: UNIONPAY,
-  MAESTRO: MAESTRO
+  MAESTRO: MAESTRO,
+  ISRACARD: ISRACARD
 };
 
 module.exports = creditCardType;
